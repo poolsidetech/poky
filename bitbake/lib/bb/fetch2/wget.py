@@ -96,8 +96,9 @@ class Wget(FetchMethod):
             bb.utils.mkdirhier(os.path.dirname(localpath))
             fetchcmd += " -O %s" % shlex.quote(localpath)
 
+        #    fetchcmd += " --user=%s --password=%s --auth-no-challenge" % (ud.user, ud.pswd)
         if ud.user and ud.pswd:
-            fetchcmd += " --user=%s --password=%s --auth-no-challenge" % (ud.user, ud.pswd)
+            fetchcmd += " --auth-no-challenge"
 
         uri = ud.url.split(";")[0]
         if os.path.exists(ud.localpath):
@@ -444,7 +445,7 @@ class Wget(FetchMethod):
                     valid = 1
                 elif self._vercmp(version, newver) < 0:
                     version = newver
-                
+
         pupver = re.sub('_', '.', version[1])
 
         bb.debug(3, "*** %s -> UpstreamVersion = %s (CurrentVersion = %s)" %
